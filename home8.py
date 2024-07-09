@@ -24,6 +24,8 @@ dat_base = {
     "password": "1111"
 }
 
+# CREATE
+
 with Book(dat_base) as (conn, cur):
     commands = (
         """
@@ -44,7 +46,7 @@ with Book(dat_base) as (conn, cur):
     conn.commit()
     print('Successfully created!')
 
-
+# INSERT
 with Book(dat_base) as (conn, cur):
     postgres_insert_query = "INSERT INTO company(company_name) VALUES (%s)"
     insert_values = [('BLACK ROAD',), ('Google',), ('Amazon',)]
@@ -60,20 +62,23 @@ with Book(dat_base) as (conn, cur):
     conn.commit()
     print('Second table successfully inserted!')
 
+# READ
 with Book(dat_base) as (conn, cur):
-        postgresql_select_query1 = "SELECT * FROM company"
-        cur.execute(postgresql_select_query1)
-        rows_company = cur.fetchall()
-        print("Company Table:")
-        for row in rows_company:
-            print(row)
+    postgresql_select_query1 = "SELECT * FROM company"
+    cur.execute(postgresql_select_query1)
+    rows_company = cur.fetchall()
+    print("Company Table:")
+    for row in rows_company:
+        print(row)
 
-        postgresql_select_query2 = "SELECT * FROM workers"
-        cur.execute(postgresql_select_query2)
-        rows_workers = cur.fetchall()
-        print("\nWorkers Table:")
-        for row in rows_workers:
-            print(row)
+    postgresql_select_query2 = "SELECT * FROM workers"
+    cur.execute(postgresql_select_query2)
+    rows_workers = cur.fetchall()
+    print("\nWorkers Table:")
+    for row in rows_workers:
+        print(row)
+
+# UPDATE
 
 with Book(dat_base) as (conn, cur):
     postgres_update_query = "UPDATE workers SET worker_age = 23 WHERE worker_id = 1"
@@ -88,7 +93,8 @@ with Book(dat_base) as (conn, cur):
     print("\nWorkers Table:")
     for row in rows_workers:
         print(row)
-
+        
+# DELETE
 
 with Book(dat_base) as (conn, cur):
     postgres_delete_query = "DELETE FROM workers WHERE worker_id = 3"
